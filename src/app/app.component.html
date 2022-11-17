@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody [formGroup]="myForm">
+          <tr
+            class="align-middle"
+            *ngFor="let raw of quantities().controls; let i = index"
+            formArrayName="quantities"
+          >
+            <ng-container [formGroupName]="i">
+              <td>
+                <mat-form-field>
+                  <input
+                    matInput
+                    [matDatepicker]="myDate"
+                    formControlName="myDt"
+                    placeholder="Select Date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="myDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #myDate></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <input
+                  class="form-control rounded-0 border-0 border-bottom"
+                  formControlName="myQty"
+                  type="number"
+                  min="0"
+                  placeholder="Enter Qty"
+                />
+              </td>
+              <td>
+                <i
+                  class="bi bi-trash-fill"
+                  (click)="removeRow(i)"
+                  style="cursor: pointer;"
+                ></i>
+              </td>
+            </ng-container>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div class="row gx-0">
+                <button
+                  type="button"
+                  class="col btn btn-secondary text-start rounded-0"
+                  (click)="addRow()"
+                >
+                  Add new row
+                </button>
+                <button
+                  type="submit"
+                  class="col-6 btn btn-primary text-start rounded-0"
+                  (click)="onSubmit()"
+                >
+                  Submit
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
